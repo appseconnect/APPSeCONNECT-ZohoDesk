@@ -1,0 +1,110 @@
+<UserControl x:Class="InSync.eConnect.ZohoDesk.ConnectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:appseconnect="http://schemas.appseconnect.com/API/"
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"> 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/InSync.eConnect.APPSeCONNECT;component/UI/Styles/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Height="350">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="Button" x:Key="btnStyle">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="FontSize" Value="10.667" />
+                <Setter Property="FontFamily" Value="Segoe UI Semibold" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+        </Grid.Resources>
+        <StackPanel Orientation="Vertical"
+                 Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label  Content="Base URL*" />
+            <TextBox Text="{Binding BaseUrl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+               ToolTip="Enter Base Url for your Zoho.Desk integration"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label  Content="Client ID*" />
+            <TextBox Text="{Binding ClientID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+               ToolTip="Enter Client ID from from https://accounts.zoho.com/developerconsole after registering your app."/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label  Content="Client Secret*" />
+            <PasswordBox appseconnect:PasswordHelper.Attach="True" ToolTip="Get client secret from https://accounts.zoho.com/developerconsole after registering your app."
+                   appseconnect:PasswordHelper.Password="{Binding ClientSecret,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                 Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label  Content="Callback URL*" />
+            <TextBox Text="{Binding CallBack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+               ToolTip="https://accounts.zoho.com/developerconsole and register your app"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label  Content="Scope*" />
+            <TextBox
+           Text="{Binding Scope,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+           ToolTip="Scope of the API requests"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label  Content="Organization Id" />
+            <TextBox
+           Text="{Binding OrganizationId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+           ToolTip="Scope of the API requests"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="{Binding ConnectionStatus,Mode=TwoWay}"
+               HorizontalAlignment="Center"
+             Foreground="{Binding ForeColor}"  />
+        <ProgressBar Grid.Row="6" IsIndeterminate="True" Name="progressBar" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF0079C3" Visibility="{Binding ProgressbarVisibility}"
+                     Height="10" Width="250" RenderTransformOrigin="1.02,0.2"/>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/> 
+            </Grid.ColumnDefinitions>
+            <!--<Button Grid.Row="7"
+              Grid.Column="0"
+              Content="Authorize"
+              Command="{Binding GetTokenCommand}"
+              Width="91" Height="25"
+                    
+              IsEnabled="{Binding TButtonEnable}"
+              Style="{StaticResource WindowButtonStyle}"/>-->
+            <Button Grid.Row="7"   Grid.Column="0"
+              Content="Validate"
+              Command="{Binding ValidateCommand}"
+              Width="91" Height="25"
+              IsEnabled="{Binding ButtonEnable}"
+              Style="{StaticResource WindowButtonStyle}"/>
+            <Button Grid.Row="7"   Grid.Column="1"
+              Content="Save"
+              Command="{Binding SaveCommand}"
+              Width="91" Height="25"
+              IsEnabled="{Binding SaveEnable}"
+              Style="{StaticResource WindowButtonStyle}"/>
+        </Grid>
+    </Grid>
+</UserControl>
